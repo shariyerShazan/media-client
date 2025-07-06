@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+@theme {
+    --color-favone: #4c9f9e;
+    /* --color-favtwo: #c3b5ff; */
+    /* --color-favthree: #febb0f; */
+    /* --text-shadow-xl: 0 35px 35px  #4c9f9e;  */
+  }
