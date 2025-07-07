@@ -6,10 +6,15 @@ import { Link, useNavigate } from "react-router";
 import { USER_API_END_POINT } from "../utils/apiEndPoints";
 import { toast } from "react-toastify";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/user.slice";
 
 function Login() {
-    const [loadingBtn, setLoadingBtn] = useState(false)
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+
+    const [loadingBtn, setLoadingBtn] = useState(false)
   const [eye, setEye] = useState(true);
   const [error, setError] = useState("");
 
@@ -25,6 +30,7 @@ function Login() {
         { withCredentials: true }
       );
       if (res?.data?.success) {
+        dispatch(setUser(res.data.user))
         toast.success(res?.data?.message || "login successful");
         setError("");
         navigate("/");

@@ -6,6 +6,9 @@ import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import CreatePost from "../pages/CreatePost";
+import Profile from "../pages/Profile";
+import Message from "../pages/Message";
 
 export const Router = createBrowserRouter([
   {
@@ -16,7 +19,19 @@ export const Router = createBrowserRouter([
       {
         index: true ,
         element: <HomePage />
-      }
+      },
+    {
+      path : "create-post",
+      element : <CreatePost />
+    },
+    {
+      path : "profile/:id",
+      element : <Profile />
+    },
+    {
+      path : "message",
+      element : <Message />
+    }
     ]
   },
       {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LeftSideBar() {
+function Message() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function LeftSideBar() {
   )
 }
 
-export default LeftSideBar
+export default Message
