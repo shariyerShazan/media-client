@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoMdEye } from "react-icons/io";
+import { IoMdArrowRoundBack, IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
@@ -7,12 +7,14 @@ import { USER_API_END_POINT } from "../utils/apiEndPoints";
 import { toast } from "react-toastify";
 
 function Register() {
+       const [loadingBtn, setLoadingBtn] = useState(false)
   const navigate = useNavigate();
 
   const [eye, setEye] = useState(true);
   const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
+    setLoadingBtn(true)
     e.preventDefault();
     const fullName = e.target.fullName.value;
     const email = e.target.email.value;
@@ -35,16 +37,23 @@ function Register() {
     } catch (error) {
       const errMsg = error.response?.data?.message || "Something went wrong";
       setError(errMsg);
+    }finally{
+        setLoadingBtn(false)
     }
   };
 
   return (
+    <div className="w-[90%] mx-auto">
+
+    <Link className="flex items-center gap-2 btn bg-favone/80 hover:bg-favone w-min px-10 my-6" to={"/"}> <IoMdArrowRoundBack /> Home
+            </Link>
     <div className="flex justify-center items-center h-[70vh] ">
       <div>
         <form
           onSubmit={handleRegister}
           className="flex flex-col gap-4 w-96 border-favone border-2 p-5 rounded-xl shadow-xl hover:shadow-2xl"
         >
+                      <p className="text-2xl font-bold text-center">Media<span className="text-red-500">Up</span> Register</p>
           {/* name */}
           <div className="flex flex-col">
             <label className="text-lg font-bold " htmlFor="">
@@ -130,7 +139,7 @@ function Register() {
               type="submit"
               className="btn bg-favone/80 hover:bg-favone w-full"
             >
-              Register
+             {loadingBtn ?<div className="loading loading-spinner loading-md"></div> :"Register"}
             </button>
             <span className="my-2">
               Already have an account?{" "}
@@ -141,6 +150,7 @@ function Register() {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }
