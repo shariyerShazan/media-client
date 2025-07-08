@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { USER_API_END_POINT } from '../utils/apiEndPoints'
 import { useDispatch } from 'react-redux'
-import { setOtherUser } from '../redux/user.slice'
+import {setOtherUsers } from '../redux/user.slice'
 
 const useGetOtherUsers = () => {
     const dispatch = useDispatch()
@@ -10,7 +10,8 @@ const useGetOtherUsers = () => {
         const fetchOtherUsers = async ()=>{
             const res = await axios.get(`${USER_API_END_POINT}/other-users` , {withCredentials: true})
             if(res.data.success){
-               dispatch(setOtherUser(res.data.otherUsers))
+                // console.log(res.data.otherUsers)
+               dispatch(setOtherUsers(res.data.otherUsers))
             }
         }
         fetchOtherUsers()

@@ -11,13 +11,16 @@ function HomePage() {
 
   const { posts  , currentPage ,totalPages , totalPosts , limit} = useSelector((state) => state.post);
   return (
-    <div className="grid grid-cols-24 overflow-hidden">
-      <div className="col-span-4">
+    <div className="grid grid-cols-14 gap-6 overflow-hidden">
+      <div className="col-span-3 mt-6">
         <LeftSideBar />
       </div>
-      <div className="col-span-20 overflow-y-scroll">
+      <div>
+        {/* grid gap */}
+      </div>
+      <div className="col-span-6 overflow-y-scroll">
         <h2 className="text-lg text-center text-favone font-extrabold mt-3 py-2 px-5 border-b-2 border-favone/50">Total posts: {totalPosts}</h2>
-        <div className="grid grid-cols-3 gap-10 ">
+        <div className="grid grid-cols-1  gap-10 ">
           {posts.map((post, index) => {
             return <Feed post={post} key={index} />;
           })}
@@ -43,6 +46,12 @@ function HomePage() {
 
 </div>
 
+      </div>
+      <div>
+        {/* grid gap */}
+      </div>
+      <div className="col-span-3">
+        love you
       </div>
     </div>
   );

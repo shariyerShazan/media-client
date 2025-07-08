@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { IoBookmarks } from "react-icons/io5";
+import {IoBookmarks, IoBookmarksOutline } from "react-icons/io5";
 import { LuSendHorizontal } from "react-icons/lu";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdCancelPresentation } from "react-icons/md";
@@ -9,15 +9,17 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import axios from "axios";
 import { POST_API_END_POINT } from "../utils/apiEndPoints";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/user.slice";
 
 
 function Feed({post}) {
 
-  const { user } = useSelector((state) => state.user); 
+  const { user } = useSelector((store) => store.user); 
   const [liked, setLiked] = useState(post?.likes?.includes(user?._id));
   const [likeCount , setLikeCount] = useState(post?.likes?.length)
-
+  const [isFav , setIsFav] = useState(user?.favouritePost?.includes(post._id))
+  const dispatch = useDispatch()
   const handleLike = async ()=>{
   try {
       const res = await axios.post(`${POST_API_END_POINT}/like-unlike/${post._id}` , null , {withCredentials: true})
@@ -30,6 +32,18 @@ function Feed({post}) {
     console.log(error)
   }
   }
+  const handleFavourite = async ()=>{
+    try {
+        const res = await axios.post(`${POST_API_END_POINT}/add-favourite/${post._id}` , null , {withCredentials: true})
+        if(res.data.success){
+            toast(res.data.message)
+            setIsFav(!isFav)
+            dispatch(setUser(res.data.user))
+        }
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
   const handleComment = async (e)=>{
     e.preventDefault()
@@ -53,7 +67,7 @@ try {
       <div className="flex items-center justify-between mb-3">
         <div className="flex gap-2 items-center">
           <img
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-10 h-10 border-2 border-favone rounded-full object-cover"
             src={`${post?.postedBy?.profilePicture || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQksR3Lt2Iy2rlmUKvJmc27GcXpe297gINhTA&s"}`}
             alt=""
           />
@@ -98,7 +112,7 @@ try {
       {/* Action Buttons */}
       <div className="flex justify-between items-center mb-2">
         <div className="flex gap-5 items-center">
-          <button onClick={() => handleLike()}>
+          <button onClick={handleLike}>
             {liked ? (
               <FaHeart size={22} className="text-red-500 cursor-pointer" />
             ) : (
@@ -109,8 +123,11 @@ try {
             <IoMdInformationCircleOutline size={22}/>
             </Link>
         </div>
-        <button>
-          <IoBookmarks className="cursor-pointer" size={22} />
+        <button onClick={handleFavourite}>
+          { 
+            isFav ? <IoBookmarks className="cursor-pointer" size={22} /> :<IoBookmarksOutline className="cursor-pointer" size={22} />
+          }
+          
         </button>
       </div>
 
