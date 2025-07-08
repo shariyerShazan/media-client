@@ -3,13 +3,11 @@ import ProfileLayout from '../components/ProfileLayout'
 import { useParams } from 'react-router'
 import useGetProfile from '../hooks/useGetProfile'
 
-
-function Profile() {
-  const { id } = useParams()
-  // console.log(id)
-   useGetProfile(id)
-
-
+function OthersProfile() {
+    const { id } = useParams()
+    // console.log(id)
+     useGetProfile(id)
+  
   return (
     <div>
       <ProfileLayout />
@@ -17,4 +15,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export default OthersProfile

@@ -7,7 +7,8 @@ const postSlice = createSlice({
         currentPage: 1 ,
         totalPages : 1 ,
         totalPosts : 1 ,
-        limit: 10
+        limit: 10 ,
+        singlePost : null
     },
     reducers: {
         setPosts:(state , action)=>{
@@ -25,7 +26,10 @@ const postSlice = createSlice({
         setLimit:(state , action)=>{
             state.limit = action.payload
         },
+        setSinglePost : (state , action)=>{
+            state.singlePost = action.payload
+        }
     }
 })
-export const {setPosts , setCurrentPage , setTotalPages , setTotalPosts , setLimit} = postSlice.actions 
+export const {setPosts , setCurrentPage , setTotalPages , setTotalPosts , setLimit , setSinglePost} = postSlice.actions 
 export default postSlice.reducer

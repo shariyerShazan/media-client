@@ -9,6 +9,8 @@ import Register from "../pages/Register";
 import CreatePost from "../pages/CreatePost";
 import Profile from "../pages/Profile";
 import Message from "../pages/Message";
+import OthersProfile from "../pages/OthersProfile";
+import SinglePost from "../pages/SinglePost";
 
 export const Router = createBrowserRouter([
   {
@@ -29,8 +31,16 @@ export const Router = createBrowserRouter([
       element : <Profile />
     },
     {
+      path : "othersProfile/:id",
+      element : <OthersProfile />
+    },
+    {
       path : "message",
       element : <Message />
+    },
+    {
+      path : "post/:postId",
+      element : <SinglePost />
     }
     ]
   },
