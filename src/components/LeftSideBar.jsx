@@ -34,7 +34,7 @@ function LeftSideBar() {
     <div className='flex flex-col gap-2'>
       <h2 className='text-favone font-bold text-lg text-center'>Suggested for you</h2>
       {otherUsers?.map((u, index) => {
-        const isFollowing = user.followings.includes(u._id); 
+        const isFollowing = user?.followings.includes(u._id); 
 
         return (
           <div key={index} className='flex flex-col border-t-2 border-favone/50 p-2 rounded'>
