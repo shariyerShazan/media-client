@@ -1,5 +1,4 @@
 import React from 'react'
-// import LeftSideBar from '../components/LeftSideBar'
 import { Outlet } from 'react-router'
 import RightSideForMessage from '../components/RightSideForMessage'
 import LeftSideForMessage from '../components/LeftSideForMessage'
