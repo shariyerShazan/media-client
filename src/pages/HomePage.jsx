@@ -16,13 +16,15 @@ function HomePage() {
   const { posts, currentPage, totalPages , limit, viewMode } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
 
-  // ✅ Filtered Posts based on viewMode
+  //  Filtered Posts based on viewMode
   const filteredPosts =
-    viewMode === 'recent'
-      ? posts
-      : posts.filter((post) =>
-          user?.followings?.some((f) => f._id === post.postedBy._id)
-        );
+  viewMode === "recent"
+    ? posts
+    : posts.filter((post) =>
+        user?.followings?.some(
+          (followed) => followed._id === post.postedBy._id
+        )
+      );
 
   return (
     <div className="grid grid-cols-14 gap-6 h-screen">

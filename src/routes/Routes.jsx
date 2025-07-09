@@ -8,10 +8,12 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import CreatePost from "../pages/CreatePost";
 import Profile from "../pages/Profile";
-import Message from "../pages/Message";
+// import Message from "../pages/Message";
 import OthersProfile from "../pages/OthersProfile";
 import SinglePost from "../pages/SinglePost";
 import EditProfile from "../pages/EditProfile";
+import MessageHome from "../pages/MessageHome";
+import MessageSwap from "../components/MessageSwap";
 
 export const Router = createBrowserRouter([
   {
@@ -36,8 +38,14 @@ export const Router = createBrowserRouter([
       element : <OthersProfile />
     },
     {
-      path : "message",
-      element : <Message />
+      path : "message/",
+      element : <MessageHome /> ,
+      children : [
+        {
+          path : "/message/:id" ,
+          element: <MessageSwap />
+        }
+      ]
     },
     {
       path : "post/:postId",

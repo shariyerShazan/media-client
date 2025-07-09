@@ -2,6 +2,8 @@ import {combineReducers, configureStore}  from "@reduxjs/toolkit"
 import userSlice from "./user.slice"
 import postSlice from "./post.slice"
 // import userProfileSlice from "./userProfile"
+import messageSlice from "./message.slice"
+
 import {
     persistReducer,
     FLUSH,
@@ -23,6 +25,7 @@ import {
   const rootReducer = combineReducers({
     user : userSlice ,
     post : postSlice ,
+    message : messageSlice
     // userProfile : userProfileSlice
   })
   const persistedReducer = persistReducer(persistConfig, rootReducer)

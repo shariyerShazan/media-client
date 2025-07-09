@@ -81,7 +81,7 @@ function ProfileLayout() {
           </div>
           <div>
             <p className='text-xl font-bold text-favone'>{userProfile?.fullName}</p>
-            <p className='text-gray-700'>{userProfile?.bio}</p>
+            <p className='text-gray-700 w-96'>{userProfile?.bio?.slice(0 , 150)}</p>
           </div>
         </div>
       </div>
