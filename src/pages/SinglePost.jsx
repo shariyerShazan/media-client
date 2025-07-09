@@ -36,7 +36,7 @@ function SinglePost() {
           </div>
         </div>
 
-        <p className="text-gray-700 text-md">{singlePost.caption}</p>
+        <p className="text-gray-700 text-md">{singlePost.caption.slice(0,200)}</p>
 
         <img
           className="w-full h-[400px] object-cover rounded-md shadow-sm border border-gray-200"

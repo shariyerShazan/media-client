@@ -13,8 +13,8 @@ function ProfileLayout() {
   const { userProfile , user } = useSelector((store)=> store.user)
   const dispatch = useDispatch();
 
-  // New state: কোন সেকশন দেখাবো ('posts' বা 'favourites')
   const [activeTab, setActiveTab] = useState('posts');
+  const [followers , setFollowers] = useState(userProfile.followers.length)
 
   const handleFollow = async (userId) => {
     try {
@@ -25,6 +25,12 @@ function ProfileLayout() {
       );
       if (res.data.success) {
         dispatch(setUser(res.data.updatedUser)); 
+        
+      }
+      if(res.data.isFollow){
+        setFollowers(followers + 1)
+      }else{
+        setFollowers(followers - 1)
       }
     } catch (error) {
       console.log(error);
@@ -56,9 +62,9 @@ function ProfileLayout() {
                   {isFollowing ? 'Unfollow' : 'Follow'}
                 </button>
                 :
-                <button className='btn bg-favone/70 hover:bg-favone/90'>
+                <Link to={"/profile/edit"} className='btn bg-favone/70 hover:bg-favone/90'>
                   Edit Profile
-                </button>
+                </Link>
             }
             { (userProfile?._id !== user._id) && <Link className='btn bg-favone/70 hover:bg-favone/90' to={"/message"}>Message</Link>}
           </div>
@@ -67,7 +73,7 @@ function ProfileLayout() {
               <span className='text-gray-950 font-extrabold'>{userProfile?.posts?.length}</span> Posts 
             </p> 
             <p className='text-gray-700 font-bold'>  
-              <span className='text-gray-950 font-extrabold'>{userProfile?.followers?.length}</span> Followers 
+              <span className='text-gray-950 font-extrabold'>{followers}</span> Followers 
             </p> 
             <p className='text-gray-700 font-bold'>  
               <span className='text-gray-950 font-extrabold'>{userProfile?.followings?.length}</span> Following 
@@ -81,7 +87,7 @@ function ProfileLayout() {
       </div>
 
       {/* Tabs: Photos and Bookmarks */}
-      <div className='grid grid-cols-2 mt-8'>
+      <div className={`${(userProfile._id === user._id) && "grid grid-cols-2"} w-full  mt-8`}>
         <div 
           onClick={() => setActiveTab('posts')}
           className={`flex justify-center items-center py-6 cursor-pointer btn ${activeTab === 'posts' ? 'bg-favone/70 hover:bg-favone/80' : 'hover:bg-favone/20'}`}
@@ -105,13 +111,13 @@ function ProfileLayout() {
           activeTab === 'posts' &&
           userProfile?.posts?.map((post , index) => (
             <Link key={index} to={`/post/${post._id}`} className='group relative border-4 rounded-md border-favone'>
-              <img className='w-80 h-80 rounded-md group-hover:opacity-30' src={post.postImage} alt="" />
+              <img className='w-80 h-80 rounded-md group-hover:opacity-30' src={post?.postImage} alt="" />
               <div className='hidden group-hover:block absolute top-1/2 right-1/3'>
                 <p className='flex items-center gap-2 font-extrabold'>
-                  <FaRegHeart size={18}/> {post.likes.length} Likes
+                  <FaRegHeart size={18}/> {post?.likes?.length} Likes
                 </p>
                 <p className='flex items-center gap-2 font-extrabold'>
-                  <GoCommentDiscussion size={18}/> {post.comments.length} Comments
+                  <GoCommentDiscussion size={18}/> {post?.comments?.length} Comments
                 </p>
               </div>
             </Link>
@@ -124,10 +130,10 @@ function ProfileLayout() {
               <img className='w-80 h-80 rounded-md group-hover:opacity-30' src={post.postImage} alt="" />
               <div className='hidden group-hover:block absolute top-1/2 right-1/3'>
                 <p className='flex items-center gap-2 font-extrabold'>
-                  <FaRegHeart size={18}/> {post.likes.length} Likes
+                  <FaRegHeart size={18}/> {post?.likes?.length} Likes
                 </p>
                 <p className='flex items-center gap-2 font-extrabold'>
-                  <GoCommentDiscussion size={18}/> {post.comments.length} Comments
+                  <GoCommentDiscussion size={18}/> {post?.comments?.length} Comments
                 </p>
               </div>
             </Link>

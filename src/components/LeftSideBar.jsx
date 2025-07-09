@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import axios from 'axios';
 import { USER_API_END_POINT } from '../utils/apiEndPoints';
 import { setUser } from '../redux/user.slice';
+import { toast } from 'react-toastify';
 
 function LeftSideBar() {
   useGetOtherUsers();
@@ -21,6 +22,7 @@ function LeftSideBar() {
       );
 
       if (res.data.success) {
+        toast(res.data.message)
         dispatch(setUser(res.data.updatedUser)); 
       }
     } catch (error) {
@@ -31,7 +33,7 @@ function LeftSideBar() {
   return (
     <div className='flex flex-col gap-2'>
       <h2 className='text-favone font-bold text-lg text-center'>Suggested for you</h2>
-      {otherUsers.map((u, index) => {
+      {otherUsers?.map((u, index) => {
         const isFollowing = user.followings.includes(u._id); 
 
         return (

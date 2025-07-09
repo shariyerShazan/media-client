@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import Message from "../pages/Message";
 import OthersProfile from "../pages/OthersProfile";
 import SinglePost from "../pages/SinglePost";
+import EditProfile from "../pages/EditProfile";
 
 export const Router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ export const Router = createBrowserRouter([
     {
       path : "post/:postId",
       element : <SinglePost />
+
+    },
+    {
+      path : "/profile/edit",
+      element : <EditProfile />
     }
     ]
   },
