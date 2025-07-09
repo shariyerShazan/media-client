@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Feed from "../components/Feed";
 import { useDispatch, useSelector } from "react-redux";
 import useGetAllPost from "../hooks/useGetAllPost";
@@ -12,23 +12,30 @@ import RightSideBar from "../components/RightSideBar";
 function HomePage() {
   useGetAllPost();
   const dispatch = useDispatch();
+  const centerFeedRef = useRef(); 
 
-  const { posts, currentPage, totalPages , limit, viewMode } = useSelector((state) => state.post);
+  const { posts, currentPage, totalPages, limit, viewMode } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
+
+
+  useEffect(() => {
+    if (centerFeedRef.current) {
+      centerFeedRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [totalPages, limit , currentPage]);
 
   //  Filtered Posts based on viewMode
   const filteredPosts =
-  viewMode === "recent"
-    ? posts
-    : posts.filter((post) =>
-        user?.followings?.some(
-          (followed) => followed._id === post.postedBy._id
-        )
-      );
+    viewMode === "recent"
+      ? posts
+      : posts.filter((post) =>
+          user?.followings?.some(
+            (followed) => followed._id === post.postedBy._id
+          )
+        );
 
   return (
     <div className="grid grid-cols-14 gap-6 h-screen">
-      
       {/* Left Sidebar */}
       <div className="col-span-3 mt-6 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-favone/60 scrollbar-track-transparent">
         <LeftSideBar />
@@ -37,7 +44,10 @@ function HomePage() {
       <div></div> {/* Spacer for center */}
 
       {/* Center Feed */}
-      <div className="col-span-6 overflow-y-scroll h-screen pr-4">
+      <div
+        ref={centerFeedRef} 
+        className="col-span-6 overflow-y-scroll h-screen pr-4"
+      >
         <h2 className="text-lg text-center text-favone font-extrabold mt-3 py-2 px-5 border-b-2 border-favone/50">
           Showing: {viewMode === "recent" ? "Recent Posts" : "Following Posts"} ({filteredPosts.length})
         </h2>

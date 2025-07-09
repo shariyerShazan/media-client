@@ -81,8 +81,8 @@ function MessageSwap() {
           className="w-10 h-10 rounded-full object-cover border"
         />
        <div className='flex flex-col'>
-       <Link to={`/profile/${receiver._id}`} className="font-bold text-favone text-lg">{receiver?.email} </Link>
-       <h2 className="font-bold  ">{receiver?.fullName}</h2>
+       <Link to={`/profile/${receiver._id}`} className="font-bold  hover:text-green-500 text-lg">{receiver?.email} </Link>
+       <h2 className="font-bold text-favone text-sm">{receiver?.fullName}</h2>
        </div>
       </div>
 
